@@ -123,7 +123,7 @@ Describe -Name 'Integration Tests' -Tags ('IT') -Fixture {
             $Script:outputs = ( terraform output -json | ConvertFrom-Json )
            
             Write-Host "    Destroying Integration test resources... Please be even more patient!"
-            $command = "terraform destroy -input=false -auto-approve -var-file=`"$fileTfVars`"  `"$dir/test/fixtures/frame1`""
+            $command = "terraform destroy -input=false -auto-approve -var-file=`"$fileTfVars`"  `"$dirTests`""
             Invoke-Expression $command 
             $? | Should be $true 
             $currentvars = $vars
