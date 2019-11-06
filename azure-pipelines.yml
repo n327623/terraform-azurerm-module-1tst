@@ -1,4 +1,4 @@
-# Resource Group Product CI pipeline
+# Storage Account Basic Product CI pipeline
 name: $(BuildDefinitionName)-$(version)-$(gitBranch)-b$(Rev:r)
 resources:
   repositories:
@@ -14,7 +14,7 @@ jobs:
   parameters:
     gitUrl: https://gitlab.alm.gsnetcloud.corp/ccoe/iac.az.modules.storage-account-basic
     gitBranch: $(gitBranch)
-    name: 'Build_StorageAccount'
+    name: 'Build_StorageAccountBasic'
     configDir: '$(System.DefaultWorkingDirectory)/test/fixtures/frame1'
     azureSubscription: ${{ variables.azureSubscription }}
     subscriptionId: ${{ variables.subscriptionId }}
