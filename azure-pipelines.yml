@@ -1,0 +1,22 @@
+# Storage Account Basic Product CI pipeline
+name: $(BuildDefinitionName)-$(version)-$(gitBranch)-b$(Rev:r)
+resources:
+  repositories:
+  - repository: templates
+    type: git
+    name: ccoe.products.templates
+    ref: onprem
+
+variables:
+- template: variables/build.yml@templates  # Template reference
+jobs:
+- template: jobs/buildProduct.yml@templates  # Template reference
+  parameters:
+    gitUrl: https://gitlab.alm.gsnetcloud.corp/ccoe/iac.az.modules.storage-account-basic
+    gitBranch: $(gitBranch)
+    name: 'Build_StorageAccountBasic'
+    configDir: '$(System.DefaultWorkingDirectory)/test/fixtures/frame1'
+    azureSubscription: ${{ variables.azureSubscription }}
+    subscriptionId: ${{ variables.subscriptionId }}
+    tenantId: ${{ variables.tenantId }}
+    pool: ${{ variables.pool}}
