@@ -109,27 +109,24 @@ Describe -Name 'Integration Tests' -Tags ('IT') -Fixture {
         If ($vars -ne $currentvars) {
             $planfile = "it1.tfplan"
             $command = "terraform plan -input=false -var-file=`"$fileTfVars`" -out=`"$planfile`" $dirTestFrame"
-            Write-Host $command 
+
             Invoke-Expression $command
             $? | Should be $true
             Write-Host "it1.plan $planfile"
             Write-Host "    Creating Integration resources... Please be patient!"
             $command = "terraform apply -input=false  -auto-approve $planfile"
-            Write-Host $command 
+
             Invoke-Expression $command
             $? | Should be $true 
             Remove-Item $planfile
-            #$Script:resources = ((terraform show -json | ConvertFrom-Json).values.root_module.child_modules | Where-Object { $_.address -eq "module.main" }).resources
             $Script:resources = ((terraform show -json | ConvertFrom-Json).values.root_module.child_modules).resources
-
             $Script:outputs = ( terraform output -json | ConvertFrom-Json )
            
-            # Write-Host "    Destroying Integration test resources... Please be even more patient!"
-            #$command = "terraform destroy -input=false -auto-approve -var-file=`"$dir/test/fixtures/frame1/$tfvarfile`" $(tfvars($vars)) `"$dir/test/fixtures/frame1`""
-            #Invoke-Expression $command 
+            Write-Host "    Destroying Integration test resources... Please be even more patient!"
+            $command = "terraform destroy -input=false -auto-approve -var-file=`"$fileTfVars`"  `"$dir/test/fixtures/frame1`""
+            Invoke-Expression $command 
             $? | Should be $true 
             $currentvars = $vars
-
     }
   }
 
@@ -148,9 +145,6 @@ Describe -Name 'Integration Tests' -Tags ('IT') -Fixture {
       env_sta_replication   = "LRS"
     }
 
-    #It -name 'should exists resources' {
-    #  ($resources | Where-Object { $_.mode -eq"managed" }).Count | Should Be 1
-    #}
 
     It -name 'check Storage Account plan' {
       $sta = $resources | Where-Object { $_.type -eq "azurerm_storage_account" }
