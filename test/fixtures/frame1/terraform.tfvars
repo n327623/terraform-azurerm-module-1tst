@@ -1,9 +1,7 @@
 resource_group = "tstd1weustatesctocomm001"
-name= "sta123456"
+name= "sta1234567"
 
 location = "westeurope"
-cost_center = "CC"
-product = "test-producto"
 
 channel = "test-channel"
 description = "test-desc"

@@ -70,7 +70,7 @@ Describe "Unit Tests" -Tag 'UT' {
             env_description       = "test-desc"
             env_tracking_code     = "test-TC"
             env_cia               = "CIA"
-            env_sta_name          = "sta123456"
+            env_sta_name          = "sta1234567"
             env_sta_tier          = "Standard"
             env_sta_replication   = "LRS"
         }
@@ -98,4 +98,67 @@ Describe "Unit Tests" -Tag 'UT' {
             $sta.change.after.tags.cia | Should Be $vars.env_cia
         }
     }
+}
+
+Describe -Name 'Integration Tests' -Tags ('IT') -Fixture {
+
+  $currentvars = $null
+  $Script:vars = $null
+
+  BeforeEach {
+        If ($vars -ne $currentvars) {
+            $planfile = "it1.tfplan"
+            $command = "terraform plan -input=false -var-file=`"$fileTfVars`" -out=`"$planfile`" $dirTestFrame"
+            Write-Host $command 
+            Invoke-Expression $command
+            $? | Should be $true
+            Write-Host "it1.plan $planfile"
+            Write-Host "    Creating Integration resources... Please be patient!"
+            $command = "terraform apply -input=false  -auto-approve $planfile"
+            Write-Host $command 
+            Invoke-Expression $command
+            $? | Should be $true 
+            Remove-Item $planfile
+            #$Script:resources = ((terraform show -json | ConvertFrom-Json).values.root_module.child_modules | Where-Object { $_.address -eq "module.main" }).resources
+            $Script:resources = ((terraform show -json | ConvertFrom-Json).values.root_module.child_modules).resources
+
+            $Script:outputs = ( terraform output -json | ConvertFrom-Json )
+           
+            # Write-Host "    Destroying Integration test resources... Please be even more patient!"
+            #$command = "terraform destroy -input=false -auto-approve -var-file=`"$dir/test/fixtures/frame1/$tfvarfile`" $(tfvars($vars)) `"$dir/test/fixtures/frame1`""
+            #Invoke-Expression $command 
+            $? | Should be $true 
+            $currentvars = $vars
+
+    }
+  }
+
+  Context -Name 'Foo Frame Case' {
+    $Script:vars = @{
+      env_rsg      = "tstd1weustatesctocomm001"
+      env_location          = "westeurope"
+      env_cost_center       = "CC"
+      env_product           = "test-producto"
+      env_channel           = "test-channel"
+      env_description       = "test-desc"
+      env_tracking_code     = "test-TC"
+      env_cia               = "CIA"
+      env_sta_name          = "sta1234567"
+      env_sta_tier          = "Standard"
+      env_sta_replication   = "LRS"
+    }
+
+    #It -name 'should exists resources' {
+    #  ($resources | Where-Object { $_.mode -eq"managed" }).Count | Should Be 1
+    #}
+
+    It -name 'check Storage Account plan' {
+      $sta = $resources | Where-Object { $_.type -eq "azurerm_storage_account" }
+      $sta | Should Not Be $null
+      $sta.values.name | Should Be $vars.env_sta_name
+      $tags = $sta.values.tags
+     ($tags | Get-Member -MemberType NoteProperty).Count | Should Be 6
+   }
+
+  }
 }
