@@ -70,7 +70,7 @@ Describe "Unit Tests" -Tag 'UT' {
             env_description       = "test-desc"
             env_tracking_code     = "test-TC"
             env_cia               = "CIA"
-            env_sta_name          = "sta1234567"
+            env_sta_name          = "teststa191106"
             env_sta_tier          = "Standard"
             env_sta_replication   = "LRS"
         }
@@ -140,7 +140,7 @@ Describe -Name 'Integration Tests' -Tags ('IT') -Fixture {
       env_description       = "test-desc"
       env_tracking_code     = "test-TC"
       env_cia               = "CIA"
-      env_sta_name          = "sta1234567"
+      env_sta_name          = "teststa191106"
       env_sta_tier          = "Standard"
       env_sta_replication   = "LRS"
     }

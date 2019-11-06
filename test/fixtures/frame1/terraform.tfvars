@@ -1,5 +1,5 @@
 resource_group = "tstd1weustatesctocomm001"
-name= "sta1234567"
+name= "teststa191106"
 
 location = "westeurope"
 
