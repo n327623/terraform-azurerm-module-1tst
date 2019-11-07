@@ -20,7 +20,7 @@ An Azure storage account contains all of your Azure Storage data objects: blobs,
 
 ### Configuration
 The product supports the [common configuration parameters](https://confluence.ci.gsnet.corp/display/OPTIMUM/Product+Parameters#ProductParameters-Common) for all certified products.
-<span style="background-color: #FFAA00">OJO QUE AQUI APARECEN PARA STA VARIABLES QUE PARA BASIC NO APLICAN -->RAFA!!! </span>
+
 
 Additionally the product supports the following custom configuration:
 
@@ -35,7 +35,7 @@ Additionally the product supports the following custom configuration:
 ### Version
 |Version|Target SCF|
 |:--|:--|
-|1.0.0|<span style="background-color: #FFAA00">SM</span>|
+|1.0.0||
 
 ### Dependencies
 The following resources must exist before the deployment can take place:
@@ -116,7 +116,7 @@ This product has been certified for the [Security Control Framework v1.2](https:
 |SM#|What|How it is implemented in the Product|Who|
 |--|:---|:---|:--|
 |SM1|Encrypt data at rest using application or server level encryption|[Default Azure Storage Encryption is enabled to encrypt data at rest](https://docs.microsoft.com/en-us/azure/storage/common/storage-service-encryption)|CCoE|
-|SM2|Encrypt data in transit using private & public interconnections|<span style="background-color: #FFAA00">Certified Product enables only https traffic</span>|CCoE|
+|SM2|Encrypt data in transit using private & public interconnections|Certified Product enables only https traffic|CCoE|
 |SM3|Control resource geography|Certified Product location can be configured using product deployment parameters|DevOps|
 
 ### Application (**P**) Controls for Rated Workloads
