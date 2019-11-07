@@ -38,13 +38,11 @@ Describe "Unit Tests" -Tag 'UT' {
 
             Write-Host "Terraform Validate..."
             $command = "terraform validate -var-file=`"$fileTfVars`" $dirTestFrame"
-            Write-Host $command
             Invoke-Expression $command
             $? | Should be $true
 
             Write-Host "Creating test plan..."
             $command = "terraform plan -input=false -var-file=`"$fileTfVars`" -out=`"$planfile`" $dirTestFrame"
-            Write-Host $command
             Invoke-Expression $command
             $? | Should be $true
 
@@ -111,13 +109,11 @@ Describe -Name 'Integration Tests' -Tags ('IT') -Fixture {
         If ($vars -ne $currentvars) {
             $planfile = "it1.tfplan"
             $command = "terraform plan -input=false -var-file=`"$fileTfVars`" -out=`"$planfile`" $dirTestFrame"
-
             Invoke-Expression $command
             $? | Should be $true
-            Write-Host "it1.plan $planfile"
+            
             Write-Host "    Creating Integration resources... Please be patient!"
             $command = "terraform apply -input=false  -auto-approve $planfile"
-
             Invoke-Expression $command
             $? | Should be $true 
             Remove-Item $planfile
@@ -126,7 +122,7 @@ Describe -Name 'Integration Tests' -Tags ('IT') -Fixture {
            
             Write-Host "    Destroying Integration test resources... Please be even more patient!"
             $command = "terraform destroy -input=false -auto-approve -var-file=`"$fileTfVars`"  `"$dirTests`""
-            #Invoke-Expression $command 
+            Invoke-Expression $command
             $? | Should be $true 
             $currentvars = $vars
     }
