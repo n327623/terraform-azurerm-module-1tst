@@ -20,14 +20,14 @@ An Azure storage account contains all of your Azure Storage data objects: blobs,
 
 ### Configuration
 The product supports the [common configuration parameters](https://confluence.ci.gsnet.corp/display/OPTIMUM/Product+Parameters#ProductParameters-Common) for all certified products.
+<span style="background-color: #FFAA00">OJO QUE AQUI APARECEN PARA STA VARIABLES QUE PARA BASIC NO APLICAN -->RAFA!!! </span>
 
 Additionally the product supports the following custom configuration:
 
 |Parameter| Tf Name | Default Value | Type |Mandatory |Others |
 |:--|:--:|:--:|:--:|:--:|:--|
-|Account Tier| account_tier| n/a | string| yes| Standard/Premium |
-|Access Tier| access_tier| Hot| string| no| Hot/Cool |
-|Replication Type| account_replication_type | n/a | string | yes| LRS/GRS/RAGS... |
+|storage Tier| storage_tier| n/a | string| yes| Standard/Premium |
+|Replication Type| storage_replication | n/a | string | yes| LRS/GRS/RAGS... |
 
 ### Public Documentation
 [Azure Storage Account Overview](https://docs.microsoft.com/en-us/azure/storage/common/storage-account-overview)
@@ -35,7 +35,7 @@ Additionally the product supports the following custom configuration:
 ### Version
 |Version|Target SCF|
 |:--|:--|
-|1.2.0|SM|
+|1.0.0|<span style="background-color: #FFAA00">SM</span>|
 
 ### Dependencies
 The following resources must exist before the deployment can take place:
@@ -53,6 +53,18 @@ Resources given by the Cloud Competence Center that need to be in place:
 | Cloud Center of Excellence | Understand the Design of this Service |
 | Cybersecurity Hub | Understand how the Security Framework is implemented in this Service and who is responsible of each control |
 | Service Management Hub | Understand how the Service can be managed according to the Service Management Framework |
+
+## Usage
+
+Include the next code into your main.tf file:
+
+```hcl
+module "sta" {
+  source = "<storage.account-basic module source>"
+
+  <Storage Account Basic configuration parameters>
+}
+```
 
 ## Architecture
 ![Architecture diagram](documentation/architecture_diagram.png "Architecture diagram")
@@ -95,7 +107,7 @@ This product has been certified for the [Security Control Framework v1.2](https:
 |SF1|Resource Tagging on all resources|Product includes all required tags in the deployment template|CCoE|
 |SF2|IAM on all accounts|CCoE RBAC model for products certifies right level of access to the storage account. Only Azure AD RBAC access is enabled for the product (SAS Tokens are not used <span style="background-color: #FFFF00">although this is not enforced</span>)|CCoE|
 |SF3|MFA on accounts|This is governed by Azure AD|Protect|
-|SF4|Platform Activity Logs & Security Monitoring|Platform logs and security monitoring provided by Platform|CCoE|
+|SF4|Platform Activity Logs & Security Monitoring|<span style="background-color: #FFAA00">Platform logs and security monitoring provided by Platform</span>|CCoE|
 |<span style="color:red">SF5</span>|Virus/Malware Protection|<span style="background-color: #FFFF00">No antivirus protection for Storage Account</span>||
 |SF6|Authenticate all connections|Azure Storage Account uses trusted certificates|MS|
 
@@ -104,7 +116,7 @@ This product has been certified for the [Security Control Framework v1.2](https:
 |SM#|What|How it is implemented in the Product|Who|
 |--|:---|:---|:--|
 |SM1|Encrypt data at rest using application or server level encryption|[Default Azure Storage Encryption is enabled to encrypt data at rest](https://docs.microsoft.com/en-us/azure/storage/common/storage-service-encryption)|CCoE|
-|SM2|Encrypt data in transit using private & public interconnections|Certified Product enables only https traffic|CCoE|
+|SM2|Encrypt data in transit using private & public interconnections|<span style="background-color: #FFAA00">Certified Product enables only https traffic</span>|CCoE|
 |SM3|Control resource geography|Certified Product location can be configured using product deployment parameters|DevOps|
 
 ### Application (**P**) Controls for Rated Workloads
@@ -113,7 +125,7 @@ This product has been certified for the [Security Control Framework v1.2](https:
 |SP1|Segregation of Duties|[It is possible to use a built-in role in case there is a specific need of delegating that role to some specific administrator with the least privileges required](https://docs.microsoft.com/en-us/azure/storage/common/storage-auth-aad?toc=%2fazure%2fstorage%2fblobs%2ftoc.json)|DevOps|
 |SP2|Vulnerability Management|Detect is responsible for vulnerability scanning of public endpoints|Detect|
 |SP3|Security Configuration & Patch Management|Since this is a **SaaS** service, product upgrade and patching is done by CSP|MS|
-|<span style="color:red">SP4</span>|Service Logs & Security Monitoring|Product is connected to Log Analytics for activity and security monitoring. [<span style="background-color: #FFFF00">Only product metrics are being exported since Logs for Storage Account is not currently GA]( https://docs.microsoft.com/en-us/rest/api/storageservices/enabling-storage-logging-and-accessing-log-data).|CCoE|
+|<span style="color:red">SP4</span>|Service Logs & Security Monitoring|<span style="background-color: #FFAA00">Product is not connected to Log Analytics for activity and security monitoring.</span>.|CCoE|
 |SP5|Privileged Access Management|**Data Plane**: Access to data plane is not considered Privileged Access<br>**Control Plane**:Access to the control plane is considered Privileged Access and is governed as per the [Azure Management Endpoint Privileged Access Management]() policy|n/a|
 |SP6|Network Security Perimeter|**SP6.1**: DevOps can configure the isolated network by leveraging the product built in Virtual Firewall<br>**SP6.2**: Virtual Firewall can be used to deny incoming traffic, built in Azure DDoS protection for PaaS/SaaS services<br>**SP6.3**: Doesn't apply as no outbound traffic is generated from the service<br>**SP6.4,SP6.5**: Virtual Network Service Endpoint can be configured to enable incoming traffic from on-prem or private Virtual Networks. Public IP filtering is set to prevent access from Internet<br>**SP6.6**: Doesn't apply<br>**SP6.7**: : Doesn't apply<br>**SP6.8**: : Doesn't apply<br>|DevOps, CCoE|
 |<span style="color:red">SP7</span>|Advanced Malware Protection|[<span style="background-color: #FFFF00">Advanced Threat Protection can be enabled at the Storage Account to mitigate this thread (**Only for the Blob service**) ](https://docs.microsoft.com/en-us/azure/storage/common/storage-advanced-threat-protection)|<span style="background-color: #FFFF00"> DevOps</span>|
@@ -160,11 +172,10 @@ This section explain the structure and elements that represent the artifacts of 
 
 |Folder|Name|Description
 |--|:-|--|
-|Documentation|network_diagram.png|Network topology diagram|
-|Documentation|architecture_diagram.png|Architecture diagram|
+|documentation|network_diagram.png|Network topology diagram|
+|documentation|architecture_diagram.png|Architecture diagram|
 |Root|Readme.md|Product documentation file|
 |Root|main.tf|Terraform file to use in pipeline to build and release a product|
-|Root|outputs.tf|Terraform file to use in pipeline to check output|
 |Root|variables.tf|Terraform file to use in pipeline to configure product|
 
 

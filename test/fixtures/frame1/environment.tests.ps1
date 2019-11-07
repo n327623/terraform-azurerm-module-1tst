@@ -38,11 +38,13 @@ Describe "Unit Tests" -Tag 'UT' {
 
             Write-Host "Terraform Validate..."
             $command = "terraform validate -var-file=`"$fileTfVars`" $dirTestFrame"
+            Write-Host $command
             Invoke-Expression $command
             $? | Should be $true
 
             Write-Host "Creating test plan..."
             $command = "terraform plan -input=false -var-file=`"$fileTfVars`" -out=`"$planfile`" $dirTestFrame"
+            Write-Host $command
             Invoke-Expression $command
             $? | Should be $true
 
@@ -124,7 +126,7 @@ Describe -Name 'Integration Tests' -Tags ('IT') -Fixture {
            
             Write-Host "    Destroying Integration test resources... Please be even more patient!"
             $command = "terraform destroy -input=false -auto-approve -var-file=`"$fileTfVars`"  `"$dirTests`""
-            Invoke-Expression $command 
+            #Invoke-Expression $command 
             $? | Should be $true 
             $currentvars = $vars
     }
