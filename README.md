@@ -101,7 +101,7 @@ This product has been certified for the [Security Control Framework v1.2](https:
 
 ## Security Controls based on Security Control Framework
 
-### Basidc (**B**) Controls for Rated Workloads
+### Basic (**B**) Controls for Rated Workloads
 |SB#|What|How it is implemented in the Product|Who|
 |--|:---|:---|:--|
 |SB1|Encrypt data at rest using service level encryption|Storage service encryption protects your data at rest|CCoE|
