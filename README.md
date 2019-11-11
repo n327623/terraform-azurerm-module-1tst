@@ -35,7 +35,7 @@ Additionally the product supports the following custom configuration:
 ### Version
 |Version|Target SCF|
 |:--|:--|
-|1.0.0||
+|1.0.0| This product is for internal IaC use only|
 
 ### Dependencies
 The following resources must exist before the deployment can take place:
@@ -101,36 +101,11 @@ This product has been certified for the [Security Control Framework v1.2](https:
 
 ## Security Controls based on Security Control Framework
 
-### Foundation (**F**) Controls for Rated Workloads
-|SF#|What|How it is implemented in the Product|Who|
+### Basidc (**B**) Controls for Rated Workloads
+|SB#|What|How it is implemented in the Product|Who|
 |--|:---|:---|:--|
-|SF1|Resource Tagging on all resources|Product includes all required tags in the deployment template|CCoE|
-|SF2|IAM on all accounts|CCoE RBAC model for products certifies right level of access to the storage account. Only Azure AD RBAC access is enabled for the product (SAS Tokens are not used <span style="background-color: #FFFF00">although this is not enforced</span>)|CCoE|
-|SF3|MFA on accounts|This is governed by Azure AD|Protect|
-|SF4|Platform Activity Logs & Security Monitoring|<span style="background-color: #FFAA00">Platform logs and security monitoring provided by Platform</span>|CCoE|
-|<span style="color:red">SF5</span>|Virus/Malware Protection|<span style="background-color: #FFFF00">No antivirus protection for Storage Account</span>||
-|SF6|Authenticate all connections|Azure Storage Account uses trusted certificates|MS|
-
-
-### Medium (**M**) Controls for Rated Workloads
-|SM#|What|How it is implemented in the Product|Who|
-|--|:---|:---|:--|
-|SM1|Encrypt data at rest using application or server level encryption|[Default Azure Storage Encryption is enabled to encrypt data at rest](https://docs.microsoft.com/en-us/azure/storage/common/storage-service-encryption)|CCoE|
-|SM2|Encrypt data in transit using private & public interconnections|Certified Product enables only https traffic|CCoE|
-|SM3|Control resource geography|Certified Product location can be configured using product deployment parameters|DevOps|
-
-### Application (**P**) Controls for Rated Workloads
-|SP#|What|How it is implemented in the Product|Who|
-|--|:---|:---|:--|
-|SP1|Segregation of Duties|[It is possible to use a built-in role in case there is a specific need of delegating that role to some specific administrator with the least privileges required](https://docs.microsoft.com/en-us/azure/storage/common/storage-auth-aad?toc=%2fazure%2fstorage%2fblobs%2ftoc.json)|DevOps|
-|SP2|Vulnerability Management|Detect is responsible for vulnerability scanning of public endpoints|Detect|
-|SP3|Security Configuration & Patch Management|Since this is a **SaaS** service, product upgrade and patching is done by CSP|MS|
-|<span style="color:red">SP4</span>|Service Logs & Security Monitoring|<span style="background-color: #FFAA00">Product is not connected to Log Analytics for activity and security monitoring.</span>.|CCoE|
-|SP5|Privileged Access Management|**Data Plane**: Access to data plane is not considered Privileged Access<br>**Control Plane**:Access to the control plane is considered Privileged Access and is governed as per the [Azure Management Endpoint Privileged Access Management]() policy|n/a|
-|SP6|Network Security Perimeter|**SP6.1**: DevOps can configure the isolated network by leveraging the product built in Virtual Firewall<br>**SP6.2**: Virtual Firewall can be used to deny incoming traffic, built in Azure DDoS protection for PaaS/SaaS services<br>**SP6.3**: Doesn't apply as no outbound traffic is generated from the service<br>**SP6.4,SP6.5**: Virtual Network Service Endpoint can be configured to enable incoming traffic from on-prem or private Virtual Networks. Public IP filtering is set to prevent access from Internet<br>**SP6.6**: Doesn't apply<br>**SP6.7**: : Doesn't apply<br>**SP6.8**: : Doesn't apply<br>|DevOps, CCoE|
-|<span style="color:red">SP7</span>|Advanced Malware Protection|[<span style="background-color: #FFFF00">Advanced Threat Protection can be enabled at the Storage Account to mitigate this thread (**Only for the Blob service**) ](https://docs.microsoft.com/en-us/azure/storage/common/storage-advanced-threat-protection)|<span style="background-color: #FFFF00"> DevOps</span>|
-|SP8|Cyber incidents management & Digital evidences gathering|Isolate infrastructure product is possible with Virtual Firewall|DevOps|
-|SP9|Pentesting|All penetration testing must be authorized by business owners and pertinent stakeholders|Cybersecurity, DevOps|
+|SB1|Encrypt data at rest using service level encryption|Storage service encryption protects your data at rest|CCoE|
+|SB2|Encrypt data in transit over public interconnections: Doesn't apply (Secure transfer is disabled) ||CCoE|
 
 # **Service Management Framework**
 This section explains how the different aspects to have into account in order to meet the Service Management Framework for this Certified Service. 
