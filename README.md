@@ -7,7 +7,10 @@
 
 
 ### Acronym
+<!--
 Acronym for the product is **sta**, check [List of Acronyms](https://confluence.ci.gsnet.corp/display/OPTIMUM/List%2Bof%2BAcronyms) for a complete list of acronyms
+-->
+Acronym for the product is **sta**, check [List of Acronyms](https://confluence.alm.europe.cloudcenter.corp/display/OPTIMUM/List+of+Acronyms) for a complete list of acronyms
 
 ### Description
 An Azure storage account contains all of your Azure Storage data objects: blobs, files, queues, tables, and disks. The storage account provides a unique namespace for your Azure Storage data that is accessible from anywhere in the world over HTTP or HTTPS. Data in your Azure storage account is durable and highly available, secure, and massively scalable.
@@ -19,7 +22,14 @@ An Azure storage account contains all of your Azure Storage data objects: blobs,
 |Authentication|Azure AD RBAC model should be used to access resources, **access using SAS Tokens should not be used** (<span style="background-color: #FFFF00">not enforced</span>)|
 
 ### Configuration
+<!--
 The product supports the [common configuration parameters](https://confluence.ci.gsnet.corp/display/OPTIMUM/Product+Parameters#ProductParameters-Common) for all certified products.
+-->
+The product supports the <b>common configuration parameters</b> for all certified products.
+
+Please refer to the [Documentation](https://confluence.alm.europe.cloudcenter.corp/display/OPTIMUM/Welcome+to+the+CCoE) in Confluence.
+
+More information, available in [https://confluence.alm.europe.cloudcenter.corp/pages/viewpage.action?pageId=53441417](https://confluence.alm.europe.cloudcenter.corp/pages/viewpage.action?pageId=53441417)
 
 
 Additionally the product supports the following custom configuration:
@@ -157,10 +167,17 @@ This section explain the structure and elements that represent the artifacts of 
 
 
 # **Links to internal documentation**
-
+<!--
 **Reference documents** :  
 - [List of Acronyms](https://confluence.ci.gsnet.corp/display/OPTIMUM/List%2Bof%2BAcronyms)
 - [Naming Convention for Repos](https://confluence.ci.gsnet.corp/display/OPTIMUM/Naming+Convention+for+Azure+resources)
 - [Repo module strategy for terraform](https://confluence.ci.gsnet.corp/display/OPTIMUM/Repo+module+strategy+for+Terraform)
 - [Product Portfolio](https://confluence.ci.gsnet.corp/display/OPTIMUM/CCoE+Product+Portfolio)
 - [Naming Convention for Azure Resources](https://confluence.ci.gsnet.corp/display/OPTIMUM/Naming+Convention+for+Azure+resources)
+-->
+**Reference documents** :
+- [List of Acronyms](https://confluence.alm.europe.cloudcenter.corp/display/OPTIMUM/List+of+Acronyms)
+- [Naming Convention for Repos](https://confluence.alm.europe.cloudcenter.corp/display/OPTIMUM/AZ+Naming+Convention+for+Azure+resources)
+- [Repo module strategy for terraform](https://confluence.alm.europe.cloudcenter.corp/display/OPTIMUM/Repo+module+strategy+for+Terraform)
+- [Product Portfolio](https://confluence.alm.europe.cloudcenter.corp/display/OPTIMUM/CCoE+Product+Portfolio)
+- [Naming Convention for Azure Resources](https://confluence.alm.europe.cloudcenter.corp/display/OPTIMUM/AZ+Naming+Convention+for+Azure+resources)
